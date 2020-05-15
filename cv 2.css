@@ -1,0 +1,131 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Indie Flower', cursive;
+}
+
+.div1{
+    background-color: rgb(182, 83, 83);
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 20px;
+
+}
+.image1{
+    border:3px solid black;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    float: left;
+}
+.div2{
+    float: left;
+    padding: 20px;
+
+}
+
+.div3{
+    float: right;
+    padding: 15px;
+  
+}
+
+.div3 p a{
+    text-decoration: none;
+}
+
+.div3 p a:hover{
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: chartreuse;
+}
+.div0{
+ clear:both;
+}
+
+.hrull{
+    border: 2px black solid;
+    margin: 20px auto;
+}
+.hrull2{
+    border: 2px black solid;
+    border-bottom: none;
+    margin: 20px auto;
+}
+.left-div{
+    float: left;
+    width: 300px;
+}
+
+.right-div{
+    float: left;
+    max-width: 700px;
+}
+
+.right-div-1{
+    float: left;
+    width: 350px;
+}
+
+.right-div-2{
+    float: left;
+    max-width: 350px;
+}
+
+.links:hover{
+    font-weight: bold;
+    text-decoration: underline;
+    color: chartreuse;
+}
+
+.listy{
+    list-style: square;
+    padding: 20px;
+}
+
+.foot{
+    background-color: black;
+    height: 80px;
+    width: 1040px;
+    margin: 0 auto;
+    padding-top: 5px;
+}
+
+.li123{
+    width:max-content;
+    margin: 0 auto;
+}
+
+.li123 ul{
+    list-style: none;
+}
+
+.li123 ul li{
+    float: left;
+    margin: 5px 20px;
+}
+
+.li123 ul li a{
+    text-decoration: none;
+    color: white;
+}
+
+.li123 ul li a:hover{
+
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: chartreuse;
+    
+}
+
+.li321{
+    width: max-content;
+    margin: 0 auto;
+    color: white;
+   
+}
+
