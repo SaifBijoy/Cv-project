@@ -9,31 +9,202 @@
             margin: 0px;
             padding: 0px;
         }
-        body{
-            background-color: black;
-        }
-        section{
-            position: relative;
+    
+    
+        div{
             width: 100%;
-            height: 100vh;
+            height: 100%;
+        }
+        canvas{
           
-            background-size: cover;
-            clip-path: circle(150px at var(--x) var(--y));    
+            box-sizing: border-box;
+            height: 100%;
+            width: 100%;
+            border: 1px solid #000000;
+            background-image: linear-gradient(135deg,red -20%,white 47%,red 145%);
         }
-        .back-gr{
-            background-image: url(pic1.jpg);
-        }
+     
+ 
     </style>
 </head>
 <body>
-    <section></section>
+    <div><canvas></canvas></div>
+   
     <script>
-        var pos = document.documentElement;
-        pos.addEventListener("mousemove",function(e){
-            document.querySelector("section").classList.add("back-gr");
-            pos.style.setProperty('--x',e.clientX + "px");
-            pos.style.setProperty('--y',e.clientY + "px");
-        })
+        var x = document.querySelector("canvas");
+        var hit = window.innerHeight;
+        x.height = hit;
+        x.width = window.innerWidth;
+        var can = x.getContext("2d");
+        window.addEventListener("resize",function(){
+                    x.height = hit;
+                    x.width = window.innerWidth;         
+                })
+        
+        var r_X = [];
+        var r_Y = [];
+        var in_crX = [];
+        var in_crY = [];
+        var rds = [];
+        var rds_ex = [];
+        var sped_all = 1;
+        var sped_X;
+        var sped_Y;
+        var clr = [];
+        for(var z=0;z<=500;z++){
+            rds[z] = Math.random()*8+2;//upore thaka lagbe
+            rds_ex[z] = rds[z];
+            r_X[z] = Math.random()*(window.innerWidth-(2*rds[z]))+rds[z];
+            r_Y[z] = Math.random()*(hit-(2*rds[z]))+rds[z];
+            sped_X = Math.random()-0.5;
+            sped_Y = Math.random()-0.5; 
+            if (sped_X>0){
+                in_crX[z] = sped_all;
+            }
+            else if(sped_X<0){
+                in_crX[z] = -sped_all;
+            }
+
+            if (sped_Y>0){
+                in_crY[z] = sped_all;
+            }
+            else if(sped_Y<0){
+                in_crY[z] = -sped_all;
+            }
+            colX(z);
+        }
+
+
+        function colX(k){
+            var col = Math.floor(Math.random()*11);
+            switch (col){
+                case (0) :
+                    clr[k]= "blue";
+                    break;
+                case (1) :
+                    clr[k]= "red";
+                    break;
+                case (2) :
+                    clr[k]= "green";
+                    break;
+                case (3) :
+                    clr[k]= "#da4500";
+                    break;
+                case (4) :
+                    clr[k]= "#C4E538";
+                    break;
+                case (5) :
+                    clr[k]= "#1B1464";
+                    break;
+                case (6) :
+                    clr[k]= "#B53471";
+                    break;
+                case (7) :
+                    clr[k]= "#5758BB";
+                    break;
+                case (8) :
+                    clr[k]= "#33d9b2";
+                    break;
+                case (9) :
+                    clr[k]= "#ffda79";
+                    break;
+                default :
+                    clr[k]= "#07c500";
+                    break
+
+                
+            }
+        }
+
+     
+
+        var mos = {
+            mos_x : undefined,
+            mos_y : undefined
+            }
+         
+        var mouse_aria = 30;
+
+        x.addEventListener("mousemove",function(event){
+                mos.mos_x = event.x;
+                mos.mos_y = event.y;
+         
+            });
+
+
+        function animX(){
+            can.clearRect(0,0,window.innerWidth,hit);
+            for(var uX=0;uX<r_X.length;uX++){
+              
+                if(r_X[uX]+rds[uX]>=window.innerWidth || r_X[uX]<rds[uX]){
+                    in_crX[uX] = -in_crX[uX];
+                }
+
+                if(r_Y[uX]+rds[uX]>=hit ||r_Y[uX]<rds[uX]){
+                    in_crY[uX] = -in_crY[uX];
+                }
+
+                if(mos.mos_x>=r_X[uX]-rds[uX] - mouse_aria && mos.mos_x<=r_X[uX]+rds[uX] + mouse_aria
+                && mos.mos_y>=r_Y[uX]-rds[uX] - mouse_aria && mos.mos_y<=r_Y[uX]+rds[uX] + mouse_aria){
+                    rds[uX] += 5;
+                    if(rds[uX]>60){
+                        rds[uX]=60;
+                    }
+                }
+
+                else{
+                    rds[uX] -= 0.7; 
+                    if(rds[uX]<=rds_ex[uX]){
+                       rds[uX] = rds_ex[uX];
+                    }
+                }
+
+                can.beginPath();
+                can.arc(r_X[uX],r_Y[uX],rds[uX],0,Math.PI*2,false);
+                can.fillStyle = clr[uX];
+                can.fill();
+              
+                r_X[uX] += in_crX[uX];
+                r_Y[uX] += in_crY[uX];   
+            }
+
+                /*
+                can.beginPath();
+                can.fillStyle = "green";
+                can.arc(mos.mos_x,mos.mos_y-50,49,0,Math.PI*2,false);
+                can.fill();
+
+                can.beginPath();
+                can.fillStyle = "blue";
+                can.arc(mos.mos_x+50,mos.mos_y,49,0,Math.PI*2,false);
+                can.fill();
+
+                can.beginPath();
+                can.fillStyle = "yellow";
+                can.arc(mos.mos_x,mos.mos_y+50,49,0,Math.PI*2,false);
+                can.fill();
+
+                can.beginPath();
+                can.fillStyle = "red";
+                can.arc(mos.mos_x-50,mos.mos_y,49,0,Math.PI*2,false);
+                can.fill();*/
+
+
+              
+            
+            requestAnimationFrame(animX);
+        }
+        
+      
+        animX();
+     
+        
+        
+    
+        
+      
+      
+           
     </script>
 </body>
 </html>
